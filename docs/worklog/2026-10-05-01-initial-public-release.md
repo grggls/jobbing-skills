@@ -27,8 +27,7 @@ no personal data.
   `curl`) are written from the connector's tool schemas, not from a run.
 - `claude plugin marketplace add grggls/jobbing-skills` against the pushed
   repository.
-- `scripts/install.sh` with the Chromium step on a machine without a
-  Playwright cache.
+- `install.sh` on a Mac without Homebrew (the Homebrew-install branch).
 
 ## What's next
 

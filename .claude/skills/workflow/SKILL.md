@@ -29,8 +29,10 @@ English.
 
 Do these steps one time in each session, before the first task:
 
-1. Run `jobbing home`. If the command fails, stop. Tell the user to install
-   the CLI (see `docs/INSTALL.md` in the jobbing repository).
+1. Run `jobbing home`. If the shell reports "command not found", try
+   `./.venv/bin/jobbing home` in the jobbing-skills folder, and use that path
+   for all `jobbing` commands in this session. If both fail, stop. Tell the
+   user to run the installer (see `docs/INSTALL.md`).
 2. Read `CONTEXT.md` in the workspace. It is the only source of facts about
    the user. If it does not exist, or it still has the template hint text,
    stop. Tell the user to run `jobbing init` and to fill in `CONTEXT.md`.
@@ -261,4 +263,4 @@ curl -sS -X POST "{upload_url}" -H "{Header}: {value}" -F "file=@{path to PDF}"
 4. Do not score a job from its title and company name only. Read the JD.
 
 If `jobbing browse` reports "Playwright is not available", tell the user to
-run `scripts/install.sh` again without `--no-browser`.
+run the installer again without `--no-browser`.

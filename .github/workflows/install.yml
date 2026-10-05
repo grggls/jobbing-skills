@@ -1,0 +1,65 @@
+name: Install
+
+# End-to-end test of install.sh on a Mac: empty home folder, no shell
+# profile files, Homebrew not on PATH. See scripts/ci/test-install.sh.
+#
+# - install:                 every PR and push to main (runner's Homebrew present)
+# - install-fresh-homebrew:  weekly, on demand, and on PRs labeled
+#                            "fresh-homebrew"; removes Homebrew first so the
+#                            installer must install it from scratch
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled]
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      fresh_homebrew:
+        description: "Also remove Homebrew first and install it from scratch"
+        type: boolean
+        default: true
+
+concurrency:
+  group: install-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install and verify
+        run: scripts/ci/test-install.sh
+
+  install-fresh-homebrew:
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.fresh_homebrew) ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'fresh-homebrew'))
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove Homebrew
+        run: |
+          NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)" || true
+          sudo rm -rf /opt/homebrew /usr/local/Homebrew /usr/local/Cellar /usr/local/bin/brew
+          if [ -x /opt/homebrew/bin/brew ] || [ -x /usr/local/bin/brew ]; then
+            echo "Homebrew is still present" >&2
+            exit 1
+          fi
+          echo "Homebrew removed"
+
+      - name: Install and verify
+        run: scripts/ci/test-install.sh

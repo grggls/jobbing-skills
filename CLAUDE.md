@@ -1,16 +1,16 @@
-# Jobbing — Instructions for Claude
+# jobbing-skills — Instructions for Claude
 
 This file uses ASD-STE100 Simplified Technical English.
 
 ## 1. What this repository is
 
-Jobbing helps one person find and apply for jobs. Claude scores job postings,
+jobbing-skills helps one person find and apply for jobs. Claude scores job postings,
 writes a tailored CV and cover letter for each job, prepares the user for
 interviews, and tracks each application in the user's Notion workspace.
 
 - `README.md`: the human introduction.
 - `docs/INSTALL.md`: the install procedure. Use it when the user asks you to
-  install or set up Jobbing.
+  install or set up jobbing-skills.
 - `docs/ARCHITECTURE.md`: how the parts work together.
 - `docs/DECISIONS.md`: the reasons for the design.
 
@@ -74,8 +74,9 @@ src/jobbing/           the CLI package
 src/jobbing/templates/ files for `jobbing init` and `jobbing example`
 tests/                 pytest suite
 docs/                  install, architecture, decisions, worklog
-scripts/install.sh     setup script for macOS and Linux
+install.sh             one-step installer (Homebrew, Python, uv, CLI, PATH)
 ```
 
 Workspace files (`CONTEXT.md`, `BOOKMARKS.md`, `.env`, `applications/`,
 `scan_results/`) are in the repository root by default. Git ignores them.
+The installer puts the repository in `~/Documents/jobbing-skills`.

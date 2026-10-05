@@ -18,9 +18,10 @@ htmlcov/
 =*
 
 # Personal data: created by `jobbing init` and the skills. Never commit.
-CONTEXT.md
-BOOKMARKS.md
-CV-*.pdf
-applications/
-scan_results/**
-!scan_results/.gitkeep
+# Anchored with "/" so the templates in src/jobbing/templates/ are NOT ignored.
+/CONTEXT.md
+/BOOKMARKS.md
+/CV-*.pdf
+/applications/
+/scan_results/**
+!/scan_results/.gitkeep

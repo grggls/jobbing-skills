@@ -4,7 +4,7 @@ This document uses ASD-STE100 Simplified Technical English.
 
 ## 1. Overview
 
-Jobbing has four parts:
+jobbing-skills has four parts:
 
 1. **Skills** (`.claude/skills/`): Markdown instructions for Claude. They
    contain the judgment: scoring, writing, interview prep, and the Notion
@@ -42,7 +42,9 @@ key, no server, and no database.
 `jobbing home` prints the workspace path. The path is:
 
 1. the value of `JOBBING_HOME`, if it is set
-2. otherwise, the repository root (for an editable install from a clone)
+2. otherwise, the repository root (for an editable install from a clone).
+   The installer clones to `~/Documents/jobbing-skills`, so that folder is
+   the default workspace.
 
 `jobbing init` creates the workspace files from templates in
 `src/jobbing/templates/`. It does not overwrite files. Git ignores all
@@ -122,7 +124,14 @@ the current design).
 make check    # ruff lint, ruff format --check, mypy --strict, pytest
 ```
 
-CI runs the same checks on Python 3.14 on each push and pull request to
-`main`. The test coverage floor is 80%. The tests do not call Notion. The
+All CI runs on macOS runners (no Linux). Two workflows:
+
+- `ci.yml`: the `make check` steps on Python 3.14, on each push and pull
+  request to `main`. The test coverage floor is 80%.
+- `install.yml`: `scripts/ci/test-install.sh` runs the real `install.sh` in
+  an empty home folder with Homebrew off `PATH`, then checks fresh login
+  shells, `jobbing browse`, `jobbing pdf`, and a second run. The
+  `install-fresh-homebrew` job removes Homebrew first. It runs weekly, on
+  demand, and on pull requests with the `fresh-homebrew` label. The tests do not call Notion. The
 Notion operations are in the skills, so a person or an agent verifies them by
 running `setup` and one `analyze` → `apply` cycle against a real workspace.
