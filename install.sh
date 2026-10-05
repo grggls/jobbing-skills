@@ -93,8 +93,13 @@ if [[ -n "$SCRIPT_DIR" && -f "$SCRIPT_DIR/pyproject.toml" && -d "$SCRIPT_DIR/.cl
     INSTALL_DIR="$SCRIPT_DIR"
     ok "Using this folder ($INSTALL_DIR)"
 elif [[ -d "$INSTALL_DIR/.git" ]]; then
-    git -C "$INSTALL_DIR" pull --ff-only --quiet
-    ok "Updated $INSTALL_DIR"
+    if git -C "$INSTALL_DIR" symbolic-ref -q HEAD >/dev/null; then
+        git -C "$INSTALL_DIR" pull --ff-only --quiet ||
+            fail "Could not update $INSTALL_DIR. Local changes to the code? Run 'git -C \"$INSTALL_DIR\" status' to see them."
+        ok "Updated $INSTALL_DIR"
+    else
+        warn "$INSTALL_DIR is not on a branch; skipping update"
+    fi
 elif [[ -e "$INSTALL_DIR" && -n "$(ls -A "$INSTALL_DIR" 2>/dev/null)" ]]; then
     fail "$INSTALL_DIR exists and is not a jobbing-skills download. Move it away, or set JOBBING_DIR to another folder."
 else

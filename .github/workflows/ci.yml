@@ -6,9 +6,14 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quality:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -29,12 +34,15 @@ jobs:
       - name: Type check
         run: mypy src/
 
-      - name: Installer syntax
-        run: bash -n install.sh
+      - name: Shell syntax
+        run: |
+          bash -n install.sh
+          bash -n scripts/ci/test-install.sh
 
   tests:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: quality
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 

@@ -31,10 +31,18 @@ had no `~/.zshrc` or `~/.zprofile` and could not add `~/.local/bin` to PATH.
   `jobbing browse https://example.com` and `jobbing pdf` work. A second run
   exits 0, keeps one PATH block per file, and does not overwrite user files.
 
+## CI
+
+- All workflows run on `macos-latest`. `ci.yml` (lint, format, mypy, tests)
+  moved off Linux.
+- `install.yml` runs `scripts/ci/test-install.sh` (the vacuum test above,
+  automated) on every PR and push. `install-fresh-homebrew` removes Homebrew
+  first; it runs weekly, on demand, and on PRs labeled `fresh-homebrew`.
+- `install.sh` no longer fails when the clone is not on a branch (CI checks
+  out PRs detached); it skips the update with a warning.
+
 ## Not verified
 
-- The branch that installs Homebrew itself (Homebrew was already on the test
-  Mac). That branch runs Homebrew's official installer unchanged.
 - The Notion skills against a live workspace (see worklog -01).
 
 ## What's next
