@@ -1,6 +1,6 @@
 {
   "name": "jobbing",
-  "displayName": "Jobbing",
+  "displayName": "jobbing-skills",
   "version": "4.0.0",
   "description": "Job search skills: fit scoring, tailored CV and cover letter PDFs, outreach, interview prep and debriefs, tracked in a Notion database with a board view. Needs the jobbing CLI and the Notion connector.",
   "author": {

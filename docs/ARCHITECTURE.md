@@ -4,7 +4,7 @@ This document uses ASD-STE100 Simplified Technical English.
 
 ## 1. Overview
 
-Jobbing has four parts:
+jobbing-skills has four parts:
 
 1. **Skills** (`.claude/skills/`): Markdown instructions for Claude. They
    contain the judgment: scoring, writing, interview prep, and the Notion
@@ -42,7 +42,9 @@ key, no server, and no database.
 `jobbing home` prints the workspace path. The path is:
 
 1. the value of `JOBBING_HOME`, if it is set
-2. otherwise, the repository root (for an editable install from a clone)
+2. otherwise, the repository root (for an editable install from a clone).
+   The installer clones to `~/Documents/jobbing-skills`, so that folder is
+   the default workspace.
 
 `jobbing init` creates the workspace files from templates in
 `src/jobbing/templates/`. It does not overwrite files. Git ignores all
