@@ -18,7 +18,7 @@ jobs:
           python-version: "3.14"
 
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev,browser]"
 
       - name: Lint
         run: ruff check .
@@ -41,7 +41,7 @@ jobs:
           python-version: "3.14"
 
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev,browser]"
 
       - name: Run tests with coverage
         run: pytest --cov
