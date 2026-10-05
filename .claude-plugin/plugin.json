@@ -1,0 +1,24 @@
+{
+  "name": "jobbing",
+  "displayName": "Jobbing",
+  "version": "4.0.0",
+  "description": "Job search skills: fit scoring, tailored CV and cover letter PDFs, outreach, interview prep and debriefs, tracked in a Notion database with a board view. Needs the jobbing CLI and the Notion connector.",
+  "author": {
+    "name": "Gregory Damiani",
+    "url": "https://github.com/grggls"
+  },
+  "homepage": "https://github.com/grggls/jobbing-skills",
+  "repository": "https://github.com/grggls/jobbing-skills",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "jobs",
+    "cv",
+    "resume",
+    "cover-letter",
+    "notion",
+    "interview"
+  ],
+  "skills": [
+    "./.claude/skills/"
+  ]
+}

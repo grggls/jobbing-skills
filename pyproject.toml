@@ -1,0 +1,86 @@
+[project]
+name = "jobbing"
+version = "4.0.0"
+description = "AI-assisted job search: fit scoring, tailored CV and cover letter PDFs, tracked in Notion"
+requires-python = ">=3.14"
+dependencies = [
+    "reportlab>=4.0",
+]
+
+[project.optional-dependencies]
+browser = [
+    "playwright>=1.50",
+    "playwright-stealth>=2.0",
+]
+dev = [
+    "ipykernel>=7.2.0",
+    "mypy>=1.0",
+    "pre-commit>=3.0",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+]
+
+[project.scripts]
+jobbing = "jobbing.cli:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+jobbing = ["templates/*"]
+
+# -- Ruff (linter + formatter) ------------------------------------------------
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+extend-exclude = [".claude", "applications"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+# UP042: keep (str, Enum); StrEnum changes str() output for existing callers.
+ignore = ["UP042"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["jobbing"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+# -- Mypy (type checking) -----------------------------------------------------
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = ["reportlab.*", "playwright_stealth.*"]
+ignore_missing_imports = true
+
+# -- Pytest --------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+# -- Coverage ------------------------------------------------------------------
+
+[tool.coverage.run]
+source = ["src/jobbing"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "if __name__",
+]

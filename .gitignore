@@ -1,0 +1,26 @@
+# Python / tooling
+.env
+.venv/
+.venv-*/
+__pycache__/
+*.pyc
+*.egg-info/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.fuse_hidden*
+
+# OS / editor
+.DS_Store
+=*
+
+# Personal data: created by `jobbing init` and the skills. Never commit.
+CONTEXT.md
+BOOKMARKS.md
+CV-*.pdf
+applications/
+scan_results/**
+!scan_results/.gitkeep

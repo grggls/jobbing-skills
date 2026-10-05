@@ -1,0 +1,15 @@
+{
+  "name": "jobbing",
+  "description": "Skills for running a job search with Claude: score postings, tailor CVs and cover letters, prep for interviews.",
+  "owner": {
+    "name": "Gregory Damiani",
+    "url": "https://github.com/grggls"
+  },
+  "plugins": [
+    {
+      "name": "jobbing",
+      "source": "./",
+      "description": "Job search skills backed by the jobbing CLI and a Notion tracker."
+    }
+  ]
+}
